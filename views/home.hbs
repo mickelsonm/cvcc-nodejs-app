@@ -1,3 +1,13 @@
 {{#extend "main"}}
-    <p>Here's Our Quotes</p>
+    {{#content "body"}}
+        <p>Here's Our Quotes</p>
+        <div class="quotes">
+            {{#each quotes}}
+            <blockquote>
+                <p>{{this.quote}}</p>
+                <footer>{{this.author}} on {{formatRelative this.created}}</footer>
+            </blockquote>
+            {{/each}}
+        </div>
+    {{/content}}
 {{/extend}}

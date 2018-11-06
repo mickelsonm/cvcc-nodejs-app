@@ -15,7 +15,12 @@ const envVarsSchema = joi
       .string()
       .hostname()
       .trim()
-      .default('localhost')
+      .default('localhost'),
+    MONGO_HOST: joi
+      .string()
+      .required()
+      .description('Mongo DB host url'),
+    MONGO_PORT: joi.number().default(27017)
   })
   .required();
 
@@ -39,8 +44,12 @@ const config = {
   server: {
     port: envVars.PORT,
     host: envVars.HOST
+  },
+  mongo: {
+    host: envVars.MONGO_HOST,
+    port: envVars.MONGO_PORT,
+    db: 'cvcc-quotes'
   }
-  // ...
 };
 
 export default config;

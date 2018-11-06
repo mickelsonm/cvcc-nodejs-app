@@ -1,19 +1,19 @@
 import express from 'express';
 import path from 'path';
-import logger from 'morgan';
+import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 import hbs from 'hbs';
+import HandlebarsIntl from 'handlebars-intl';
 import layouts from 'handlebars-layouts';
-
-import index from './routes/index';
-import add from './routes/add';
+import router from './routes/index';
 
 const app = express();
 app.disable('x-powered-by');
 
 // view engine setup
 hbs.registerHelper(layouts(hbs.handlebars));
+HandlebarsIntl.registerWith(hbs.handlebars);
 const mainLayout = fs.readFileSync(
   path.join(__dirname, '../views/layouts/main.hbs'),
   'utf-8'
@@ -27,11 +27,7 @@ app.set('view options', {
 });
 app.engine('html', hbs.__express);
 
-app.use(
-  logger('dev', {
-    skip: () => app.get('env') === 'test'
-  })
-);
+app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -49,8 +45,7 @@ app.use(
 );
 
 // Routes
-app.use('/', index);
-app.use('/add', add);
+app.use('/', router);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
