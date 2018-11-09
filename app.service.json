@@ -10,7 +10,7 @@
 	"spec": {
 		"type": "LoadBalancer",
 		"ports": [{
-			"port": 8080,
+			"port": 3000,
 			"targetPort": 3001
 		}],
 		"selector": {
