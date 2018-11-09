@@ -1,0 +1,45 @@
+{
+	"apiVersion": "extensions/v1beta1",
+	"kind": "Deployment",
+	"metadata": {
+		"name": "cvcc-mongo"
+	},
+	"spec": {
+		"replicas": 1,
+		"template": {
+			"metadata": {
+				"labels": {
+					"app": "cvcc-mongo"
+				}
+			},
+			"spec": {
+				"containers": [{
+					"name": "cvcc-mongo",
+					"image": "mongo",
+					"imagePullPolicy": "Always",
+					"resources": {
+						"requests": {
+							"cpu": 0.05
+						},
+						"limits": {
+							"cpu": 0.05
+						}
+					},
+					"ports": [{
+						"containerPort": 27017
+                    }],
+                    "volumeMounts":[{
+                        "mountPath": "/data/db",
+                        "name": "mongodata"
+                    }]
+                }],
+                "volumes":[{
+                    "name": "mongodata",
+                    "hostPath": {
+                        "path": "/tmp/mongo"
+                    }
+                }]
+			}
+		}
+	}
+}
