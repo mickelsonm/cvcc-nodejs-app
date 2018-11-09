@@ -26,23 +26,20 @@ Start a MongoDB Docker container
     mongo
 ```
 
-Try and build dependencies (🤞 npm isn't down)
-
-```
-> npm i
-```
-
-Start the application
-
-```
-> npm start
-```
-
 
 Build the Docker Image
 
 ```
-> docker build -t cvcc-node .
+> docker build -t cvcc-node:production .
+```
+
+View the difference from Basic Image
+
+```
+❯ docker images cvcc-node
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+cvcc-node           production          f26804134300        10 minutes ago      220MB
+cvcc-node           latest              6461c11c01d8        20 hours ago        819MB
 ```
 
 Run the Docker Image
@@ -59,10 +56,10 @@ Run the Docker Image
     --name cvcc-node \
     --link cvcc-mongo:mongo \
     --rm \
-    cvcc-node
+    cvcc-node:production
 ```
 
-Profit
+Profit Faster
 
 ```
 > open http://localhost:8080
